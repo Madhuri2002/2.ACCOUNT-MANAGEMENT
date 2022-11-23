@@ -1,0 +1,226 @@
+<style>
+$blue: #001E33;
+
+* {
+  box-sizing: border-box;
+}
+
+.hide {
+  display: none;
+}
+
+html {
+  font-size: 10px;
+  font-family: "Avenir Next";
+}
+
+page-overlay {
+  position: fixed;
+  display: flex;
+  background: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  width: 100vw;
+}
+
+deposit-modal {
+  margin: auto;
+  display: flex;
+  background: #fff;
+  width: 40rem;
+  min-height: 75rem;
+  padding: 3rem;
+  flex-direction: column;
+  >*+* {
+    margin-bottom: 2rem;
+  }
+}
+
+.provider-section {
+  >*+* {
+    margin-top: 3rem;
+  }
+}
+
+.inline {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-flow: row nowrap;
+  >*+* {
+    margin-left: 2rem;
+  }
+}
+
+h1 {
+  text-transform: uppercase;
+  font-size: 3rem;
+  font-weight: normal;
+  margin: 0;
+  padding: 0 0 2rem 0;
+  border-bottom: 1px solid rgba($blue, .5);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+}
+
+button {
+  background: $blue;
+  border: none;
+  color: #fff;
+  padding: 2rem 1rem;
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: 300;
+  margin-top: auto;
+}
+
+.add-new-card {
+  display: block;
+  color: $blue;
+  font-size: 1rem;
+  margin: 1.5rem 0 2rem;
+  outline: none;
+  text-decoration: none;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.payment-selection {
+  list-style: none;
+  padding: 0;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  li {
+    border: 1px solid $blue;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    width: 10rem;
+    text-align: center;
+    opacity: 0.5;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+    }
+    &.selected {
+      background: $blue;
+      color: #fff;
+      opacity: 1;
+      font-weight: 500;
+    }
+  }
+}
+
+label {
+  font-size: 2rem;
+  position: relative;
+  display: block;
+  width: 100%;
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 0.7em;
+    opacity: 0.8;
+    -webkit-user-select: none;
+  }
+  input {
+    padding: 1.5em 0 0.5em;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    border: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1em;
+    background: none;
+  }
+}
+
+.divider {
+  font-size: 1.5rem;
+  letter-spacing: 10px;
+  opacity: 0.3;
+  text-align: center;
+}
+
+small {
+  display: block;
+  color: $blue;
+  font-size: 0.9rem;
+  opacity: 0.5;
+  margin-bottom: 0;
+}
+</style>
+<page-overlay>
+  <deposit-modal>
+    <h1>Deposit</h1>
+    <ul class="payment-selection">
+      <li data-payment="card" class="payment-entity selected">Card</li>
+      <li data-payment="paysafe" class="payment-entity">PaysafeCard</li>
+      <li data-payment="neteller" class="payment-entity">Neteller</li>
+    </ul>
+    <label>
+      <span>Amount</span>
+      <input type="text" placeholder="20.00" required="">
+    </label>
+            
+    <section class="provider-section card">
+      <label>
+        <span>Card number</span>
+        <input type="text" placeholder="1111 2222 3333 4444">
+        <a class="add-new-card" href="">+ Manage cards</a>
+      </label>
+      <div class="inline">
+        <label>
+          <span>Expires</span>
+          <input type="text" placeholder="04/17">
+        </label>
+        <label>
+          <span>CVV</span>
+          <input type="text" placeholder="123">
+        </label>
+      </div>
+    </section>
+    <section class="provider-section paysafe hide">
+      <label>
+        <span>PaysafeCard number</span>
+        <input type="text" placeholder="1111 2222 3333 4444">
+      </label>
+    </section>
+    <section class="provider-section neteller hide">
+      <label>
+        <span>Secure ID</span>
+        <input type="text" placeholder="123456">
+      </label>
+      <label>
+        <span>Email</span>
+        <input type="text" placeholder="someone@something.com">
+      </label>
+    </section>
+    
+    <div class="divider">...</div>
+    
+    <label>
+      <span>Promo code</span>
+      <input type="text" placeholder="Enter promo code">
+    </label>
+    <button>Deposit</button>
+    <small>In accordance with our Responsible Gambling Policy, you can now set Deposit Limits at any time from your account section.</small>
+  </deposit-modal>
+</page-overlay>
+<script>
+$('.payment-entity').on('click', function() {
+  // Set active class
+  $('.payment-selection .payment-entity').removeClass('selected');
+  $(this).addClass('selected');
+  
+  // Show correct info
+  $('.provider-section').addClass('hide');
+  $('.' + $(this).data('payment')).removeClass('hide');
+});
+</script>

@@ -1,0 +1,32 @@
+<div class="contact-wrapper">
+  <main class="flex-container">
+    <section class="main-content">
+      <form class="contact-form" action="index.html" method="post" onsubmit="return false">
+        <input type="text" class="contact-form-text" placeholder="Name" id="name" required/>
+        <input type="email" class="contact-form-text" placeholder="Email" id="email" required/>
+        <input type="text" class="contact-form-text" placeholder="Title">
+        <textarea class="contact-form-text" placeholder="Type your message..."></textarea>
+        <button>Send</button>
+
+        <div class="alert">
+          <span class="message">Success: You Message Sent Successfully!</span>
+        </div>
+      </form>
+    </section>
+
+<script>
+  function validateForm() {
+    var name =  document.getElementById('name').value;
+    var name =  document.getElementById('email').value;
+  }
+
+  $('button').click(function(){
+    $('.alert').addClass("show");
+    $('.alert').addClass("showAlert");
+    $('.alert').removeClass("hide");
+    setTimeout(function(){
+      $('.alert').addClass("hide");
+      $('.alert').removeClass("show");
+    },3000);
+  });
+</script>
